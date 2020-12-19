@@ -56,6 +56,54 @@ d3.json("samples.json").then((incomingData) => {
         
                 //Reverse dataset
                 var dataSet = dataSet.reverse();
-           
+        
+                                //Create trace for plot
+                                var trace1 = {
+                                    x: dataSet.map(row => row.sampleValue),
+                                    y: dataSet.map(row => row.sampleTitle),
+                                    text: dataSet.map(row => row.sampleLabel),
+                                    name: "Sample Value",
+                                    type: "bar",
+                                    orientation: "h"
+                                };
+                        
+                                var chartData = [trace1]
+                        
+                                var layout = {
+                                    title: "Top 10 OTU's",
+                                    margin: {
+                                      l: 100,
+                                      r: 100,
+                                      t: 100,
+                                      b: 100
+                                    }
+                                };
+                        
+                                Plotly.newPlot("bar", chartData, layout);
+                                console.log(filteredSample)
+                        
+                                //Bubble chart
+                                var trace2 = {
+                                    x: filteredSample.otu_ids,
+                                    y: filteredSample.sample_values,
+                                    text: filteredSample.otu_labels,
+                                    mode: 'markers',
+                                    marker: {
+                                      color: filteredSample.otu_ids,
+                                      opacity: filteredSample.otu_ids,
+                                      size: filteredSample.sample_values
+                                    }
+                                  };
+                                  
+                                  var dataa = [trace2];
+                                  
+                                  var layout = {
+                                    title: 'Marker Size and Color',
+                                    showlegend: false,
+                                    height: 600,
+                                    width: 600
+                                  };
+                                  
+                                  Plotly.newPlot('bubble', dataa, layout);      
     }
 })
