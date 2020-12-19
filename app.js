@@ -38,6 +38,24 @@ d3.json("samples.json").then((incomingData) => {
                 })
                 
          
-                
+              
+                //Process samples data
+                var samples = incomingData.samples
+                //Filter to selected ID
+                var filteredSample = samples.filter(d => d.id == selectedId)[0]
+        
+                //Create dataset
+                var dataSet = []
+                for (var i=0; i<10;i++) {
+                    dataSet.push({
+                        sampleValue: filteredSample.sample_values[i],
+                        sampleTitle: `OTU ${filteredSample.otu_ids[i]}`,
+                        sampleLabel: filteredSample.otu_labels[i]
+                    })
+                };
+        
+                //Reverse dataset
+                var dataSet = dataSet.reverse();
+           
     }
 })
